@@ -1,2 +1,4 @@
-received_photos/
+build/
+dist/
+received_files/
 venv/

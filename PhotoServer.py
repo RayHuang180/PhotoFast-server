@@ -1,5 +1,6 @@
 import os
 import socket
+import sys
 from flask import Flask, request, jsonify
 from pathlib import Path
 from werkzeug.utils import secure_filename
@@ -9,7 +10,14 @@ from zeroconf import ServiceInfo, Zeroconf
 
 app = Flask(__name__)
 
-BASE_DIR = Path(__file__).parent
+# BASE_DIR = Path(__file__).parent
+# 修改後 (確保在 .exe 環境也能抓到正確位置)
+if getattr(sys, 'frozen', False):
+    BASE_DIR = Path(sys.executable).parent
+else:
+    BASE_DIR = Path(__file__).parent
+
+
 # 【修改】資料夾名稱改為通用名稱
 UPLOAD_FOLDER = os.path.join(BASE_DIR, 'received_files')
 
